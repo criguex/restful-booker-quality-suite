@@ -15,7 +15,7 @@ test.describe('Contracts, formats and negative paths', () => {
     const created = await createBooking(request);
     try {
       const response = await request.get(`/booking/${created.id}`, {
-        headers: { Accept: 'application/xml' }
+        headers: { Accept: 'application/xml' },
       });
       expect(response.status()).toBe(200);
       expect(response.headers()['content-type']).toContain('application/xml');
@@ -33,7 +33,7 @@ test.describe('Contracts, formats and negative paths', () => {
     const created = await createBooking(request);
     try {
       const response = await request.get(`/booking/${created.id}`, {
-        headers: { Accept: 'application/pdf' }
+        headers: { Accept: 'application/pdf' },
       });
       expect(response.status()).toBe(418);
     } finally {
@@ -45,7 +45,7 @@ test.describe('Contracts, formats and negative paths', () => {
     const created = await createBooking(request);
     try {
       const response = await request.patch(`/booking/${created.id}`, {
-        data: { firstname: 'Unauthorized' }
+        data: { firstname: 'Unauthorized' },
       });
       expect(response.status()).toBe(403);
     } finally {
@@ -64,7 +64,7 @@ test.describe('Contracts, formats and negative paths', () => {
 
   test('@negative incomplete create payload is rejected', async ({ request }) => {
     const response = await request.post('/booking', {
-      data: { firstname: 'Only one field' }
+      data: { firstname: 'Only one field' },
     });
     expect(response.status()).toBe(500);
   });

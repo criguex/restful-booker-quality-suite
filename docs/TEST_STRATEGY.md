@@ -8,17 +8,17 @@ short technical assessment and can grow into a CI regression pack.
 
 ## Risk model
 
-| Risk | Impact | Priority | Automated coverage |
-|---|---:|---:|---|
-| Unauthorized modification/deletion | Critical | P0 | PUT/PATCH/DELETE without credentials |
-| Booking lifecycle corruption | High | P0 | Create, retrieve, full/partial update, delete |
-| Authentication regression | High | P0 | Valid and invalid credentials |
-| Contract or status-code drift | High | P1 | JSON shapes, identifiers and response codes |
-| Search returns wrong records | Medium | P1 | First/last-name filters |
-| Content negotiation failure | Medium | P1 | JSON, XML and unsupported `Accept` |
-| Date-boundary/filter defects | Medium | P1 | Planned exploratory/contract expansion |
-| Concurrency and duplicate updates | High | P2 | Planned load/race suite |
-| Injection, abuse and dependency exposure | Critical | P2 | Manual security review; specialist tooling |
+| Risk                                     |   Impact | Priority | Automated coverage                            |
+| ---------------------------------------- | -------: | -------: | --------------------------------------------- |
+| Unauthorized modification/deletion       | Critical |       P0 | PUT/PATCH/DELETE without credentials          |
+| Booking lifecycle corruption             |     High |       P0 | Create, retrieve, full/partial update, delete |
+| Authentication regression                |     High |       P0 | Valid and invalid credentials                 |
+| Contract or status-code drift            |     High |       P1 | JSON shapes, identifiers and response codes   |
+| Search returns wrong records             |   Medium |       P1 | First/last-name filters                       |
+| Content negotiation failure              |   Medium |       P1 | JSON, XML and unsupported `Accept`            |
+| Date-boundary/filter defects             |   Medium |       P1 | Planned exploratory/contract expansion        |
+| Concurrency and duplicate updates        |     High |       P2 | Planned load/race suite                       |
+| Injection, abuse and dependency exposure | Critical |       P2 | Manual security review; specialist tooling    |
 
 ## Layers
 

@@ -14,6 +14,11 @@ export default defineConfig({
   use: {
     baseURL: process.env.API_BASE_URL ?? 'http://127.0.0.1:3001',
     extraHTTPHeaders: { Accept: 'application/json' },
-    trace: 'retain-on-failure'
-  }
+    trace: 'retain-on-failure',
+  },
+  projects: [
+    { name: 'api', testDir: './tests/api' },
+    { name: 'contract', testDir: './tests/contract' },
+    { name: 'performance', testDir: './tests/performance', fullyParallel: false },
+  ],
 });
