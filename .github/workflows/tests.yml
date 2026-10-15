@@ -1,0 +1,45 @@
+name: Playwright API Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Clone pinned system under test
+        run: |
+          git clone https://github.com/mwinteringham/restful-booker.git sut
+          git -C sut checkout 0046115
+      - name: Start system under test
+        run: docker compose -f sut/docker-compose.yml up --build -d
+      - name: Wait for API
+        run: |
+          for attempt in {1..30}; do
+            curl --fail --silent http://127.0.0.1:3001/ping && exit 0
+            sleep 2
+          done
+          docker compose -f sut/docker-compose.yml logs
+          exit 1
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+      - name: Target logs on failure
+        if: failure()
+        run: docker compose -f sut/docker-compose.yml logs
