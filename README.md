@@ -194,7 +194,8 @@ API_BASE_URL=https://example.test npm test
 
 Eight reproducible defects cover content negotiation, XML boolean corruption, monetary
 precision loss, invalid dates, missing-resource status codes, invalid payload handling
-and failed-authentication semantics. See [`docs/DEFECTS.md`](docs/DEFECTS.md).
+and failed-authentication semantics. See [`docs/DEFECTS.md`](docs/DEFECTS.md) or the
+portable [`docs/DEFECTS.html`](docs/DEFECTS.html) report.
 
 ## 🔁 CI behavior
 

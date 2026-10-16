@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Restful Booker Defect Report</title>
+    <style>
+      :root {
+        --ink: #152033;
+        --muted: #607089;
+        --blue: #174ea6;
+        --line: #dce4ef;
+        --high: #a52714;
+        --medium: #9a5b00;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f4f7fb;
+        color: var(--ink);
+        font:
+          15px/1.55 Inter,
+          Arial,
+          sans-serif;
+      }
+      main {
+        max-width: 1100px;
+        margin: 36px auto;
+        background: #fff;
+        padding: 52px 60px;
+        border-radius: 16px;
+        box-shadow: 0 14px 50px #1b315018;
+      }
+      h1 {
+        font-size: 36px;
+        line-height: 1.15;
+        margin: 0 0 10px;
+      }
+      h2 {
+        font-size: 21px;
+        margin: 36px 0 12px;
+      }
+      p {
+        margin: 9px 0;
+      }
+      .eyebrow {
+        color: var(--blue);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      .lead {
+        font-size: 18px;
+        color: #3d4c62;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 15px 0 28px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 18px 0;
+      }
+      th,
+      td {
+        border: 1px solid var(--line);
+        padding: 11px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #213a63;
+        color: #fff;
+      }
+      tr:nth-child(even) td {
+        background: #f8faff;
+      }
+      .high {
+        color: var(--high);
+        font-weight: 700;
+      }
+      .medium {
+        color: var(--medium);
+        font-weight: 700;
+      }
+      code {
+        background: #edf1f6;
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+      .decision {
+        border-left: 5px solid var(--high);
+        background: #fff4f1;
+        padding: 14px 18px;
+        margin: 24px 0;
+      }
+      .footer {
+        margin-top: 36px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+      }
+      @media (max-width: 760px) {
+        main {
+          margin: 0;
+          padding: 30px 20px;
+          border-radius: 0;
+        }
+        table {
+          font-size: 13px;
+        }
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        main {
+          box-shadow: none;
+          margin: 0;
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">CapRelease technical assessment</div>
+      <h1>Restful Booker Defect Report</h1>
+      <p class="lead">
+        Eight reproducible API defects confirmed through exploratory testing and automated as
+        controlled expected failures.
+      </p>
+      <p class="meta">
+        Prepared by Cristian Guerra · Verified 16 October 2026 · Target 127.0.0.1:3001
+      </p>
+
+      <div class="decision">
+        <strong>Release position:</strong> no-go for a production contract supporting XML, decimal
+        prices or untrusted dates. RB-002, RB-003 and RB-004 can silently corrupt business data.
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Severity</th>
+            <th>Endpoint</th>
+            <th>Observed behavior</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>RB-001</td>
+            <td class="medium">Medium</td>
+            <td><code>GET /booking/:id</code></td>
+            <td>XML body declares <code>text/html</code>.</td>
+            <td>Strict clients and schema middleware may reject the response.</td>
+          </tr>
+          <tr>
+            <td>RB-002</td>
+            <td class="high">High</td>
+            <td><code>POST /booking</code></td>
+            <td>XML <code>false</code> is stored as <code>true</code>.</td>
+            <td>Financial state is silently inverted.</td>
+          </tr>
+          <tr>
+            <td>RB-003</td>
+            <td class="high">High</td>
+            <td><code>POST /booking</code></td>
+            <td><code>10.99</code> is returned and stored as <code>10</code>.</td>
+            <td>Monetary precision is lost.</td>
+          </tr>
+          <tr>
+            <td>RB-004</td>
+            <td class="high">High</td>
+            <td><code>POST /booking</code></td>
+            <td>Invalid dates are accepted and can become <code>0NaN-aN-aN</code>.</td>
+            <td>Corrupt dates enter persistence and downstream workflows.</td>
+          </tr>
+          <tr>
+            <td>RB-005</td>
+            <td class="medium">Medium</td>
+            <td><code>PUT/PATCH /booking/:id</code></td>
+            <td>An absent target returns 405 instead of 404.</td>
+            <td>Clients receive a misleading method error.</td>
+          </tr>
+          <tr>
+            <td>RB-006</td>
+            <td class="medium">Medium</td>
+            <td><code>DELETE /booking/:id</code></td>
+            <td>An absent target returns 405 instead of 404.</td>
+            <td>Clients cannot distinguish absence from unsupported operations.</td>
+          </tr>
+          <tr>
+            <td>RB-007</td>
+            <td class="medium">Medium</td>
+            <td><code>POST /booking</code></td>
+            <td>A missing-field payload returns HTTP 500.</td>
+            <td>Client errors pollute service reliability metrics and may trigger retries.</td>
+          </tr>
+          <tr>
+            <td>RB-008</td>
+            <td class="medium">Medium</td>
+            <td><code>POST /auth</code></td>
+            <td>Invalid credentials return HTTP 200.</td>
+            <td>Clients, proxies and monitoring classify failed authentication as success.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Automation treatment</h2>
+      <p>
+        Nine automated checks reproduce these eight defects because RB-005 validates PUT and PATCH
+        independently. Playwright marks them as expected failures: the pipeline remains useful while
+        the defects are open, and a product fix produces an unexpected pass that requires the
+        expectation to be removed.
+      </p>
+
+      <h2>Remaining contract clarifications</h2>
+      <p>
+        <code>/ping</code> returning HTTP 201 and unsupported <code>Accept</code> values returning
+        HTTP 418 remain clarification points rather than confirmed blockers.
+      </p>
+
+      <p class="footer">
+        Full reproduction details:
+        https://github.com/criguex/restful-booker-quality-suite/blob/main/docs/DEFECTS.md
+      </p>
+    </main>
+  </body>
+</html>
