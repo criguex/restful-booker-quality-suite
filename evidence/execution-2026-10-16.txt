@@ -1,0 +1,31 @@
+Restful Booker Quality Engineering - Verified execution
+Date: 2026-10-16
+Target: http://127.0.0.1:3001
+Runtime: local Docker container, host-only binding
+
+Command:
+  npm run quality
+
+Static gates:
+  Prettier: PASS
+  ESLint: PASS
+  TypeScript: PASS
+
+Playwright:
+  Total checks: 27
+  Effective result: 27 passed
+  Duration: 2.0 seconds
+  Projects: api, contract, performance
+
+Known defect handling:
+  RB-001 is encoded with test.fail as a known expected failure.
+  The test runner reports the check as expected and the overall gate passes.
+
+Latest GitHub Actions status observed before delivery:
+  Workflow: Playwright API Tests
+  Run ID: 38800010314
+  Conclusion: success
+
+Repository:
+  https://github.com/criguex/restful-booker-quality-suite
+

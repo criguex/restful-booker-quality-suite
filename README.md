@@ -51,7 +51,8 @@ an assertion fails.
 
 Full prioritization and release decisions live in
 [`docs/TEST_STRATEGY.md`](docs/TEST_STRATEGY.md). Confirmed findings are in
-[`docs/DEFECTS.md`](docs/DEFECTS.md).
+[`docs/DEFECTS.md`](docs/DEFECTS.md). The verified assessment outcome is summarized
+in [`docs/EXECUTION_REPORT.md`](docs/EXECUTION_REPORT.md).
 
 ## 🎬 Visual walkthrough
 

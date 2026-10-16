@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Restful Booker Quality Engineering Report</title>
+    <style>
+      :root {
+        --ink: #152033;
+        --muted: #607089;
+        --blue: #174ea6;
+        --pale: #eef4ff;
+        --line: #dce4ef;
+        --green: #147d4c;
+        --amber: #9a5b00;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f4f7fb;
+        color: var(--ink);
+        font:
+          16px/1.58 Inter,
+          Arial,
+          sans-serif;
+      }
+      main {
+        max-width: 1040px;
+        margin: 36px auto;
+        background: white;
+        padding: 54px 64px;
+        box-shadow: 0 14px 50px #1b315018;
+        border-radius: 16px;
+      }
+      h1 {
+        font-size: 38px;
+        line-height: 1.12;
+        margin: 0 0 10px;
+      }
+      h2 {
+        font-size: 23px;
+        margin: 40px 0 14px;
+      }
+      h3 {
+        font-size: 18px;
+        margin: 24px 0 8px;
+      }
+      p {
+        margin: 10px 0;
+      }
+      .eyebrow {
+        color: var(--blue);
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 12px;
+      }
+      .lead {
+        font-size: 19px;
+        color: #3d4c62;
+        max-width: 800px;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 18px 0 30px;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .card {
+        background: var(--pale);
+        border: 1px solid #d9e5fb;
+        border-radius: 12px;
+        padding: 18px;
+      }
+      .value {
+        font-size: 28px;
+        font-weight: 750;
+      }
+      .label {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .decision {
+        border-left: 5px solid var(--green);
+        padding: 14px 18px;
+        background: #effaf5;
+        margin: 24px 0;
+      }
+      .pass {
+        color: var(--green);
+        font-weight: 700;
+      }
+      .known {
+        color: var(--amber);
+        font-weight: 700;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0 24px;
+      }
+      th,
+      td {
+        border: 1px solid var(--line);
+        padding: 12px 14px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #213a63;
+        color: white;
+      }
+      tr:nth-child(even) td {
+        background: #f8faff;
+      }
+      code {
+        background: #edf1f6;
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+      pre {
+        background: #111b2d;
+        color: #eaf2ff;
+        padding: 18px;
+        border-radius: 10px;
+        overflow: auto;
+      }
+      ul {
+        padding-left: 22px;
+      }
+      .footer {
+        margin-top: 44px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        font-size: 13px;
+        color: var(--muted);
+      }
+      @media (max-width: 760px) {
+        main {
+          margin: 0;
+          padding: 32px 22px;
+          border-radius: 0;
+        }
+        .cards {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media print {
+        body {
+          background: white;
+        }
+        main {
+          box-shadow: none;
+          margin: 0;
+          max-width: none;
+        }
+        .cards {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">CapRelease technical assessment</div>
+      <h1>Restful Booker Quality Engineering Report</h1>
+      <p class="lead">
+        Release-focused API assessment covering the booking lifecycle, authentication, negative
+        behavior, response contracts and lightweight performance budgets.
+      </p>
+      <p class="meta">
+        Prepared by Cristian Guerra · Verified 16 October 2026 · Local Docker target on
+        127.0.0.1:3001
+      </p>
+
+      <section class="cards">
+        <div class="card">
+          <div class="value">27</div>
+          <div class="label">automated checks</div>
+        </div>
+        <div class="card">
+          <div class="value pass">27</div>
+          <div class="label">effective passes</div>
+        </div>
+        <div class="card">
+          <div class="value known">1</div>
+          <div class="label">known defect</div>
+        </div>
+        <div class="card">
+          <div class="value pass">0</div>
+          <div class="label">release blockers</div>
+        </div>
+      </section>
+
+      <div class="decision">
+        <strong>Recommendation: release with RB-001 logged.</strong> P0 availability,
+        authentication, authorization and booking lifecycle behavior passed. The confirmed XML
+        media-type defect does not block the validated JSON critical path.
+      </div>
+
+      <h2>Validated scope</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Quality gate</th>
+            <th>Coverage</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Static quality</td>
+            <td>Prettier, ESLint and strict TypeScript</td>
+            <td class="pass">Passed</td>
+          </tr>
+          <tr>
+            <td>Functional and integration</td>
+            <td>Authentication, CRUD, filters and data integrity</td>
+            <td class="pass">Passed</td>
+          </tr>
+          <tr>
+            <td>Negative and boundaries</td>
+            <td>
+              Unauthorized access, invalid payloads, absent resources, Unicode, punctuation and
+              whitespace
+            </td>
+            <td class="pass">Passed</td>
+          </tr>
+          <tr>
+            <td>Contract</td>
+            <td>Booking, identifier list, creation and authentication schemas using Zod</td>
+            <td class="pass">Passed</td>
+          </tr>
+          <tr>
+            <td>Performance</td>
+            <td>Health p95 below 500 ms and booking list below 1 second</td>
+            <td class="pass">Passed</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Confirmed defect</h2>
+      <h3>RB-001 XML response declares the wrong content type</h3>
+      <ul>
+        <li><strong>Endpoint:</strong> <code>GET /booking/:id</code></li>
+        <li><strong>Request:</strong> <code>Accept: application/xml</code></li>
+        <li><strong>Expected:</strong> HTTP 200, XML body and an XML content type.</li>
+        <li>
+          <strong>Actual:</strong> HTTP 200 and XML body with
+          <code>Content-Type: text/html; charset=utf-8</code>.
+        </li>
+        <li>
+          <strong>Impact:</strong> Strict clients and schema middleware may reject or misparse the
+          response.
+        </li>
+        <li>
+          <strong>Disposition:</strong> P1 compatibility defect; fix before XML is advertised as a
+          supported public contract.
+        </li>
+      </ul>
+
+      <h2>Behaviors to clarify with the product team</h2>
+      <p>
+        These observations were not automatically classified as defects because the intended
+        contract needs confirmation:
+      </p>
+      <ul>
+        <li><code>/ping</code> returns 201 rather than the conventional 200.</li>
+        <li>Invalid credentials return HTTP 200 with a reason object.</li>
+        <li>
+          An incomplete create payload returns HTTP 500 rather than a client-side 4xx response.
+        </li>
+        <li>
+          An unsupported <code>Accept</code> value returns the non-standard HTTP 418 response.
+        </li>
+      </ul>
+
+      <h2>Automation design</h2>
+      <p>
+        The framework uses Playwright, TypeScript and Zod. Each test owns uniquely named data and
+        cleans it in <code>finally</code>; no scenario depends on seeded IDs or execution order.
+        Functional, contract and performance checks are separate projects. CI starts a pinned
+        Restful Booker revision in Docker, waits for health, executes static and dynamic gates, and
+        retains reports and traces.
+      </p>
+
+      <h2>Deliberate exclusions</h2>
+      <p>
+        The live assessment is time-boxed. Load and soak testing, concurrency races, specialist
+        security testing, dependency remediation, browser UI, third-party failure simulation and
+        exhaustive date combinations were left outside the release gate. This keeps the work
+        centered on booking and authorization risk without presenting the assessment as exhaustive
+        coverage.
+      </p>
+
+      <h2>Reproduce the result</h2>
+      <pre>
+git clone https://github.com/mwinteringham/restful-booker
+cd restful-booker
+docker compose up --build -d
+
+git clone https://github.com/criguex/restful-booker-quality-suite
+cd restful-booker-quality-suite
+npm ci
+npm run quality</pre>
+
+      <p class="footer">
+        Repository: https://github.com/criguex/restful-booker-quality-suite · Public portfolio
+        evidence prepared as a voluntary extension of the live exercise.
+      </p>
+    </main>
+  </body>
+</html>
