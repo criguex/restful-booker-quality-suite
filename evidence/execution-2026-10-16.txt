@@ -21,10 +21,11 @@ Known defect handling:
   RB-001 is encoded with test.fail as a known expected failure.
   The test runner reports the check as expected and the overall gate passes.
 
-Latest GitHub Actions status observed before delivery:
+GitHub Actions status for the delivered report commit:
   Workflow: Playwright API Tests
-  Run ID: 38800010314
+  Run ID: 38965700185
   Conclusion: success
+  Duration: 48 seconds
 
 Repository:
   https://github.com/criguex/restful-booker-quality-suite
