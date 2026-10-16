@@ -47,11 +47,16 @@ short technical assessment and can grow into a CI regression pack.
 - Cleanup accepts “already absent” only for teardown, never for assertions.
 - Production endpoints and real customer data are out of scope.
 
-## Known observations to discuss
+## Confirmed defect themes
 
-- `/ping` returns `201 Created` rather than the conventional `200 OK`.
-- Bad credentials return HTTP 200 with a reason object.
+- XML media types and boolean values are handled incorrectly.
+- Decimal monetary values lose precision.
+- Invalid dates can be persisted as corrupt values.
+- Missing update and delete targets return 405 instead of 404.
 - Invalid create data returns HTTP 500 instead of a client error.
-- Unsupported `Accept` may return the non-standard `418` response.
-- The application ships intentionally vulnerable dependencies; do not auto-fix the
-  assessment target because doing so changes the system under test.
+- Bad credentials return HTTP 200 rather than an authentication error status.
+
+`/ping` returning 201 and unsupported `Accept` values returning 418 remain
+product-contract clarifications rather than release blockers for this assessment. The
+application also ships intentionally vulnerable dependencies; do not auto-fix the
+assessment target because doing so changes the system under test.

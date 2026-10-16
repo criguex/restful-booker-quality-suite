@@ -22,9 +22,9 @@ authentication and authorization boundaries, response contracts, compatibility,
 data preservation and latency budgets. Tests own their data and clean it even when
 an assertion fails.
 
-> **27 automated checks across three independent quality gates.** One confirmed
-> content-negotiation defect is encoded as an expected failure so it remains visible
-> without hiding unrelated regressions.
+> **43 automated checks across four independent quality gates.** Eight confirmed
+> defects are encoded as expected failures so they remain visible without hiding
+> unrelated regressions.
 
 ## 🗂️ Quality gates
 
@@ -32,6 +32,7 @@ an assertion fails.
 | ----------------- | --------------------------------------------- | --------------------------------------------------------- | -------------------------- |
 | **`api`**         | Functional, integration and negative coverage | CRUD, filters, auth methods, Unicode, forbidden mutations | `npm run test:api`         |
 | **`contract`**    | Strict response-shape validation with Zod     | Booking, ID list, creation and authentication schemas     | `npm run test:contract`    |
+| **`component`**   | Isolated schema and boundary validation       | Dates, types, prices, names and creation identifiers      | `npm run test:component`   |
 | **`performance`** | Lightweight regression budgets                | Health p95 and booking-list latency                       | `npm run test:performance` |
 
 ## ✅ Coverage and traceability
@@ -70,7 +71,7 @@ Download the full-resolution vertical short:
 - **Multiple auth paths** — token cookie and Basic authentication are both exercised.
 - **Honest known-defect handling** — expected failure becomes an unexpected pass when fixed.
 - **Parallel-safe API design** — no dependency on seeded IDs or test execution order.
-- **Three CI gates** — functional, contract and performance concerns stay independently visible.
+- **Four CI gates** — functional, contract, component and performance concerns stay independently visible.
 - **Failure artifacts** — HTML, JUnit and Playwright traces are uploaded from CI.
 - **Pinned system under test** — CI checks out a known revision and builds it in Docker.
 - **Static quality** — ESLint, Prettier and strict TypeScript run before the suites.
@@ -136,6 +137,7 @@ restful-booker-quality-suite/
 ├── tests/
 │   ├── api/                          # Functional + integration + negative
 │   ├── contract/                     # Strict response contracts
+│   ├── component/                    # Isolated contract/schema components
 │   └── performance/                  # API latency budgets
 ├── docs/
 │   ├── TEST_STRATEGY.md              # Risk model and release policy
@@ -144,7 +146,7 @@ restful-booker-quality-suite/
 │   └── DEFECTS.md                    # Reproducible confirmed findings
 ├── showcase/                         # Remotion source for visual walkthrough
 ├── .github/workflows/tests.yml       # Docker-backed CI pipeline
-├── playwright.config.ts              # Three Playwright projects
+├── playwright.config.ts              # Four Playwright projects
 └── CONTRIBUTING.md                   # Quality contribution policy
 ```
 
@@ -181,16 +183,18 @@ API_BASE_URL=https://example.test npm test
 | `npm run test:smoke`       | Fast P0 feedback                      |
 | `npm run test:api`         | Functional/integration suite          |
 | `npm run test:contract`    | Strict Zod contracts                  |
+| `npm run test:component`   | Isolated schema component checks      |
 | `npm run test:performance` | Latency budgets                       |
 | `npm run test:negative`    | Negative and authorization paths      |
+| `npm run test:defects`     | Reproduce every confirmed defect      |
 | `npm run quality`          | Format, lint, typecheck and all tests |
 | `npm run report`           | Open the local HTML report            |
 
-## 🐞 Confirmed finding
+## 🐞 Confirmed findings
 
-`GET /booking/:id` returns an XML body when requested, but declares
-`Content-Type: text/html; charset=utf-8`. This can break strict clients and schema
-validators. See [`RB-001`](docs/DEFECTS.md).
+Eight reproducible defects cover content negotiation, XML boolean corruption, monetary
+precision loss, invalid dates, missing-resource status codes, invalid payload handling
+and failed-authentication semantics. See [`docs/DEFECTS.md`](docs/DEFECTS.md).
 
 ## 🔁 CI behavior
 
@@ -200,7 +204,7 @@ For every push and pull request, GitHub Actions:
 2. Builds and starts it with Docker Compose.
 3. Waits for a successful health check.
 4. Runs formatting, linting and strict TypeScript checks.
-5. Executes all three Playwright projects.
+5. Executes all four Playwright projects.
 6. Uploads reports and prints target logs on failure.
 
 ## 👤 Author

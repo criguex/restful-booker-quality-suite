@@ -19,6 +19,7 @@ export default defineConfig({
   projects: [
     { name: 'api', testDir: './tests/api' },
     { name: 'contract', testDir: './tests/contract' },
+    { name: 'component', testDir: './tests/component' },
     { name: 'performance', testDir: './tests/performance', fullyParallel: false },
   ],
 });

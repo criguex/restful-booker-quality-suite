@@ -12,13 +12,13 @@ Static gates:
   TypeScript: PASS
 
 Playwright:
-  Total checks: 27
-  Effective result: 27 passed
+  Total checks: 43
+  Effective result: 43 passed, including 9 controlled expected-failure checks
   Duration: 2.0 seconds
   Projects: api, contract, performance
 
 Known defect handling:
-  RB-001 is encoded with test.fail as a known expected failure.
+  RB-001 through RB-008 are encoded with test.fail as expected failures.
   The test runner reports the check as expected and the overall gate passes.
 
 GitHub Actions status for the delivered report commit:

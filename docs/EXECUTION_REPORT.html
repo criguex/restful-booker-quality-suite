@@ -181,27 +181,30 @@
 
       <section class="cards">
         <div class="card">
-          <div class="value">27</div>
+          <div class="value">43</div>
           <div class="label">automated checks</div>
         </div>
         <div class="card">
-          <div class="value pass">27</div>
+          <div class="value pass">43</div>
           <div class="label">effective passes</div>
         </div>
         <div class="card">
-          <div class="value known">1</div>
-          <div class="label">known defect</div>
+          <div class="value known">8</div>
+          <div class="label">confirmed defects</div>
         </div>
         <div class="card">
-          <div class="value pass">0</div>
-          <div class="label">release blockers</div>
+          <div class="value known">3</div>
+          <div class="label">data-integrity blockers</div>
         </div>
       </section>
 
       <div class="decision">
-        <strong>Recommendation: release with RB-001 logged.</strong> P0 availability,
-        authentication, authorization and booking lifecycle behavior passed. The confirmed XML
-        media-type defect does not block the validated JSON critical path.
+        <strong
+          >No-go for a production contract supporting XML, decimal prices or untrusted
+          dates.</strong
+        >
+        RB-002, RB-003 and RB-004 silently corrupt business data. A constrained JSON-only
+        demonstration can proceed with integer prices and upstream date validation.
       </div>
 
       <h2>Validated scope</h2>
@@ -238,6 +241,11 @@
             <td class="pass">Passed</td>
           </tr>
           <tr>
+            <td>Component</td>
+            <td>Calendar dates, primitive types, prices, names and creation identifiers</td>
+            <td class="pass">Passed</td>
+          </tr>
+          <tr>
             <td>Performance</td>
             <td>Health p95 below 500 ms and booking list below 1 second</td>
             <td class="pass">Passed</td>
@@ -245,7 +253,7 @@
         </tbody>
       </table>
 
-      <h2>Confirmed defect</h2>
+      <h2>Confirmed defects</h2>
       <h3>RB-001 XML response declares the wrong content type</h3>
       <ul>
         <li><strong>Endpoint:</strong> <code>GET /booking/:id</code></li>
@@ -265,17 +273,65 @@
         </li>
       </ul>
 
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Severity</th>
+            <th>Finding</th>
+            <th>Release position</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>RB-002</td>
+            <td>High</td>
+            <td>XML false is stored as true</td>
+            <td>Block XML release</td>
+          </tr>
+          <tr>
+            <td>RB-003</td>
+            <td>High</td>
+            <td>Decimal prices are truncated</td>
+            <td>Block monetary workflows</td>
+          </tr>
+          <tr>
+            <td>RB-004</td>
+            <td>High</td>
+            <td>Invalid dates become corrupt stored values</td>
+            <td>Block untrusted writes</td>
+          </tr>
+          <tr>
+            <td>RB-005</td>
+            <td>Medium</td>
+            <td>PUT and PATCH absent targets return 405</td>
+            <td>Fix or document</td>
+          </tr>
+          <tr>
+            <td>RB-006</td>
+            <td>Medium</td>
+            <td>DELETE absent target returns 405</td>
+            <td>Fix or document</td>
+          </tr>
+          <tr>
+            <td>RB-007</td>
+            <td>Medium</td>
+            <td>Invalid create payload returns 500</td>
+            <td>Fix before production</td>
+          </tr>
+          <tr>
+            <td>RB-008</td>
+            <td>Medium</td>
+            <td>Invalid credentials return HTTP 200</td>
+            <td>Fix before production</td>
+          </tr>
+        </tbody>
+      </table>
+
       <h2>Behaviors to clarify with the product team</h2>
-      <p>
-        These observations were not automatically classified as defects because the intended
-        contract needs confirmation:
-      </p>
+      <p>These remaining observations need confirmation of the intended public contract:</p>
       <ul>
         <li><code>/ping</code> returns 201 rather than the conventional 200.</li>
-        <li>Invalid credentials return HTTP 200 with a reason object.</li>
-        <li>
-          An incomplete create payload returns HTTP 500 rather than a client-side 4xx response.
-        </li>
         <li>
           An unsupported <code>Accept</code> value returns the non-standard HTTP 418 response.
         </li>
@@ -285,9 +341,9 @@
       <p>
         The framework uses Playwright, TypeScript and Zod. Each test owns uniquely named data and
         cleans it in <code>finally</code>; no scenario depends on seeded IDs or execution order.
-        Functional, contract and performance checks are separate projects. CI starts a pinned
-        Restful Booker revision in Docker, waits for health, executes static and dynamic gates, and
-        retains reports and traces.
+        Functional, contract, component and performance checks are separate projects. CI starts a
+        pinned Restful Booker revision in Docker, waits for health, executes static and dynamic
+        gates, and retains reports and traces.
       </p>
 
       <h2>Deliberate exclusions</h2>

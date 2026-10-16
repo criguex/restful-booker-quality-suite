@@ -10,7 +10,7 @@ test.describe('Contracts, formats and negative paths', () => {
     for (const item of body) expect(item).toEqual({ bookingid: expect.any(Number) });
   });
 
-  test('@regression booking can be represented as XML', async ({ request }) => {
+  test('@known-defect @regression booking can be represented as XML', async ({ request }) => {
     test.fail(true, 'Known defect RB-001: XML response declares text/html content type');
     const created = await createBooking(request);
     try {
@@ -62,10 +62,14 @@ test.describe('Contracts, formats and negative paths', () => {
     }
   });
 
-  test('@negative incomplete create payload is rejected', async ({ request }) => {
+  test('@known-defect @negative incomplete create payload returns a client error', async ({
+    request,
+  }) => {
+    test.fail(true, 'Known defect RB-007: invalid client payload produces HTTP 500');
     const response = await request.post('/booking', {
       data: { firstname: 'Only one field' },
     });
-    expect(response.status()).toBe(500);
+    expect(response.status()).toBeGreaterThanOrEqual(400);
+    expect(response.status()).toBeLessThan(500);
   });
 });

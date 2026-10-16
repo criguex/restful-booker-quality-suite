@@ -7,16 +7,16 @@ booking lifecycle and the authentication controls requested by CapRelease. The
 automated suite executed successfully on 16 October 2026 against a local Docker
 instance bound to `127.0.0.1:3001`.
 
-- **Automated checks:** 27
-- **Effective result:** 27 passed
-- **Confirmed defects:** 1
-- **Release blockers:** 0 in the validated scope
+- **Automated checks:** 43
+- **Effective result:** 43 passed, including nine controlled expected-failure checks
+- **Confirmed defects:** 8
+- **Release blockers:** 3 when XML, decimal prices and date integrity are supported
 - **Static gates:** Prettier, ESLint and strict TypeScript passed
 - **CI:** latest GitHub Actions run passed
 
-The single confirmed defect, RB-001, concerns an incorrect response media type for
-XML. It is encoded as an expected failure, so it stays visible and becomes an
-unexpected pass when the application is fixed.
+All eight confirmed defects are encoded in nine expected-failure checks. They stay visible and
+become unexpected passes when the application is fixed, without hiding unrelated
+regressions.
 
 ## Scope
 
@@ -41,16 +41,17 @@ The assessment covers:
 | Functional and integration | Authentication, CRUD, filters, data integrity                     | Passed |
 | Negative and boundaries    | Unauthorized access, invalid payloads, missing resources, Unicode | Passed |
 | Contract                   | Booking, ID list, creation and authentication response schemas    | Passed |
+| Component                  | Dates, types, prices, names and creation identifiers              | Passed |
 | Performance                | Health p95 below 500 ms and booking list below 1 second           | Passed |
 
 ## Release decision
 
-**Recommendation: release with RB-001 logged.** The validated P0 behavior is healthy:
-the API is available, valid authentication succeeds, invalid authorization cannot
-mutate records, and the complete booking lifecycle works. RB-001 is a medium-severity
-compatibility defect and does not block the JSON-based critical path.
+**Recommendation: no-go for a production contract that supports XML, decimal prices
+or untrusted date input.** RB-002, RB-003 and RB-004 silently corrupt business data.
+A constrained JSON-only demonstration can proceed if integer prices and validated
+dates are enforced upstream and the remaining status-code defects are logged.
 
-## Confirmed defect
+## Confirmed defects
 
 ### RB-001 XML response declares the wrong content type
 
@@ -64,14 +65,24 @@ compatibility defect and does not block the JSON-based critical path.
 - **Disposition:** Log as P1 and fix before XML is offered as a supported public
   contract. It is not a blocker for the validated JSON critical path.
 
+| ID     | Severity | Summary                                    | Release position                         |
+| ------ | -------- | ------------------------------------------ | ---------------------------------------- |
+| RB-002 | High     | XML `false` is stored as `true`            | Block XML release                        |
+| RB-003 | High     | Decimal prices are truncated               | Block monetary workflows                 |
+| RB-004 | High     | Invalid dates are stored as corrupt values | Block untrusted writes                   |
+| RB-005 | Medium   | PUT/PATCH absent target returns 405        | Fix or document before public release    |
+| RB-006 | Medium   | DELETE absent target returns 405           | Fix or document before public release    |
+| RB-007 | Medium   | Invalid create payload returns 500         | Fix before production observability gate |
+| RB-008 | Medium   | Invalid credentials return HTTP 200        | Fix before production auth monitoring    |
+
+Detailed reproduction steps and impact are maintained in
+[`DEFECTS.md`](DEFECTS.md).
+
 ## Additional observations
 
-The following behaviors were treated as product or contract decisions to clarify,
-not automatically as defects:
+The following behaviors still require confirmation of the intended public contract:
 
 - `/ping` returns `201 Created` rather than the conventional `200 OK`.
-- Invalid login credentials return HTTP 200 with a reason object.
-- An incomplete create payload returns HTTP 500 rather than a 4xx client error.
 - An unsupported `Accept` header returns the non-standard HTTP 418 response.
 
 In a production service, these decisions should be documented consistently in the
@@ -81,7 +92,7 @@ OpenAPI contract and aligned with client expectations.
 
 The framework uses Playwright with TypeScript and Zod. Tests create unique records,
 avoid seeded identifiers and clean owned data in `finally` blocks. Functional,
-contract and performance checks run as independent projects. CI starts a pinned
+contract, component and performance checks run as independent projects. CI starts a pinned
 Restful Booker revision in Docker, waits for health, runs static gates and tests, and
 uploads reports and traces.
 
