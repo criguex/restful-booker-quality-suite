@@ -54,7 +54,7 @@ a robot runs all the checks again.
 
 ## 🎯 What this project proves
 
-This repository treats the Restful Booker challenge as a small release, not as a
+This repository treats the Restful Booker demo as a small release, not as a
 collection of isolated scripts. It verifies the complete booking lifecycle,
 authentication and authorization boundaries, response contracts, compatibility,
 data preservation and latency budgets. Tests own their data and clean it even when
@@ -90,7 +90,7 @@ an assertion fails.
 
 Full prioritization and release decisions live in
 [`docs/TEST_STRATEGY.md`](docs/TEST_STRATEGY.md). Confirmed findings are in
-[`docs/DEFECTS.md`](docs/DEFECTS.md). The verified assessment outcome is summarized
+[`docs/DEFECTS.md`](docs/DEFECTS.md). The verified demo outcome is summarized
 in [`docs/EXECUTION_REPORT.md`](docs/EXECUTION_REPORT.md).
 
 ## 🔄 How it works

@@ -55,7 +55,7 @@ alguien cambia el código, un robot vuelve a correr todas las revisiones.
 
 ## 🎯 Qué demuestra este proyecto
 
-Este repositorio trata el reto de Restful Booker como un release pequeño, no como una
+Este repositorio trata la demo de Restful Booker como un release pequeño, no como una
 colección de scripts sueltos. Verifica el ciclo de vida completo de una reserva, los
 límites de autenticación y autorización, los contratos de respuesta, la compatibilidad,
 la preservación de los datos y los presupuestos de latencia. Cada prueba es dueña de sus
@@ -91,7 +91,7 @@ datos y los limpia aunque una aserción falle.
 
 La priorización completa y las decisiones de release están en
 [`docs/TEST_STRATEGY.md`](docs/TEST_STRATEGY.md). Los hallazgos confirmados están en
-[`docs/DEFECTS.md`](docs/DEFECTS.md). El resultado verificado de la evaluación está resumido
+[`docs/DEFECTS.md`](docs/DEFECTS.md). El resultado verificado de la demo está resumido
 en [`docs/EXECUTION_REPORT.md`](docs/EXECUTION_REPORT.md). Estos documentos están en inglés.
 
 ## 🔄 Cómo funciona

@@ -3,7 +3,7 @@
 ## Executive summary
 
 The Restful Booker API was assessed as a release candidate with emphasis on the
-booking lifecycle and the authentication controls requested by CapRelease. The
+booking lifecycle and the authentication controls of the demo scope. The
 automated suite executed successfully on 16 October 2026 against a local Docker
 instance bound to `127.0.0.1:3001`.
 
@@ -20,7 +20,7 @@ regressions.
 
 ## Scope
 
-The assessment covers:
+The demo covers:
 
 - API availability and authentication
 - Create, retrieve, full update, partial update and deletion of bookings
@@ -109,7 +109,7 @@ gate and recorded for future work:
 - Exhaustive date combinations and large-payload boundaries
 
 These exclusions preserve focus on the highest-risk booking and authorization paths
-without presenting a short assessment as exhaustive coverage.
+without presenting a short demo as exhaustive coverage.
 
 ## Reproduction
 

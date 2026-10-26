@@ -4,7 +4,7 @@
 
 Provide fast release confidence for the Restful Booker API while exposing contract,
 authorization, data integrity and compatibility risks. The suite is designed for a
-short technical assessment and can grow into a CI regression pack.
+short demo and can grow into a CI regression pack.
 
 ## Risk model
 
@@ -57,6 +57,6 @@ short technical assessment and can grow into a CI regression pack.
 - Bad credentials return HTTP 200 rather than an authentication error status.
 
 `/ping` returning 201 and unsupported `Accept` values returning 418 remain
-product-contract clarifications rather than release blockers for this assessment. The
+product-contract clarifications rather than release blockers for this demo. The
 application also ships intentionally vulnerable dependencies; do not auto-fix the
-assessment target because doing so changes the system under test.
+target of this demo because doing so changes the system under test.
