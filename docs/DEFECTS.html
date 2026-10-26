@@ -109,8 +109,13 @@
         margin: 22px 0;
         page-break-inside: avoid;
       }
-      .defect h2 { margin-top: 0; }
-      .facts { margin: 8px 0 14px; padding-left: 20px; }
+      .defect h2 {
+        margin-top: 0;
+      }
+      .facts {
+        margin: 8px 0 14px;
+        padding-left: 20px;
+      }
       .decision {
         border-left: 5px solid var(--high);
         background: #fff4f1;
@@ -166,8 +171,8 @@
       <h2>Defect classification criteria</h2>
       <p>
         Each finding violates at least one test oracle: the documented request/response contract,
-        HTTP semantics, content negotiation, safe input validation or round-trip data integrity.
-        A surprising result is not automatically a defect; <code>/ping</code> returning 201 and an
+        HTTP semantics, content negotiation, safe input validation or round-trip data integrity. A
+        surprising result is not automatically a defect; <code>/ping</code> returning 201 and an
         unsupported media type returning 418 remain clarification points because they may be
         intentional product behavior.
       </p>
@@ -177,12 +182,23 @@
         <h2>RB-001 — XML response declares the wrong media type</h2>
         <p><span class="medium">Medium · P1</span> · <code>GET /booking/:id</code></p>
         <ul class="facts">
-          <li><strong>Why defect:</strong> the body is XML but contractual metadata identifies it as HTML; parsers trust the header.</li>
-          <li><strong>Expected:</strong> 200, XML body and <code>Content-Type: application/xml</code>.</li>
-          <li><strong>Actual:</strong> 200 and XML body, but <code>text/html; charset=utf-8</code>.</li>
-          <li><strong>Impact:</strong> strict SDKs, gateways and schema validators can reject or misparse the response.</li>
+          <li>
+            <strong>Why defect:</strong> the body is XML but contractual metadata identifies it as
+            HTML; parsers trust the header.
+          </li>
+          <li>
+            <strong>Expected:</strong> 200, XML body and <code>Content-Type: application/xml</code>.
+          </li>
+          <li>
+            <strong>Actual:</strong> 200 and XML body, but <code>text/html; charset=utf-8</code>.
+          </li>
+          <li>
+            <strong>Impact:</strong> strict SDKs, gateways and schema validators can reject or
+            misparse the response.
+          </li>
         </ul>
-        <pre>BOOKING_ID=$(curl -s "$BASE_URL/booking" | jq -r '.[0].bookingid')
+        <pre>
+BOOKING_ID=$(curl -s "$BASE_URL/booking" | jq -r '.[0].bookingid')
 curl -si -H 'Accept: application/xml' "$BASE_URL/booking/$BOOKING_ID"
 # Observed: Content-Type: text/html; charset=utf-8
 # Body: &lt;booking&gt;...&lt;/booking&gt;</pre>
@@ -192,12 +208,25 @@ curl -si -H 'Accept: application/xml' "$BASE_URL/booking/$BOOKING_ID"
         <h2>RB-002 — XML Boolean false becomes true</h2>
         <p><span class="high">High · P1</span> · <code>POST /booking</code></p>
         <ul class="facts">
-          <li><strong>Why defect:</strong> a valid business value is silently changed to its logical opposite.</li>
-          <li><strong>Expected / actual:</strong> <code>depositpaid: false</code> should round-trip; creation and GET return <code>true</code>.</li>
-          <li><strong>Impact:</strong> an unpaid booking can be treated as paid, affecting fulfilment and reconciliation.</li>
-          <li><strong>Likely cause:</strong> string <code>"false"</code> appears to be coerced with JavaScript <code>Boolean()</code>; this is a hypothesis, not source proof.</li>
+          <li>
+            <strong>Why defect:</strong> a valid business value is silently changed to its logical
+            opposite.
+          </li>
+          <li>
+            <strong>Expected / actual:</strong> <code>depositpaid: false</code> should round-trip;
+            creation and GET return <code>true</code>.
+          </li>
+          <li>
+            <strong>Impact:</strong> an unpaid booking can be treated as paid, affecting fulfilment
+            and reconciliation.
+          </li>
+          <li>
+            <strong>Likely cause:</strong> string <code>"false"</code> appears to be coerced with
+            JavaScript <code>Boolean()</code>; this is a hypothesis, not source proof.
+          </li>
         </ul>
-        <pre>curl -si -X POST "$BASE_URL/booking" \
+        <pre>
+curl -si -X POST "$BASE_URL/booking" \
   -H 'Content-Type: application/xml' -H 'Accept: application/json' \
   --data '&lt;booking&gt;&lt;firstname&gt;Ana&lt;/firstname&gt;&lt;lastname&gt;QA&lt;/lastname&gt;&lt;totalprice&gt;100&lt;/totalprice&gt;&lt;depositpaid&gt;false&lt;/depositpaid&gt;&lt;bookingdates&gt;&lt;checkin&gt;2026-11-01&lt;/checkin&gt;&lt;checkout&gt;2026-11-02&lt;/checkout&gt;&lt;/bookingdates&gt;&lt;additionalneeds&gt;None&lt;/additionalneeds&gt;&lt;/booking&gt;'
 # Sent false; observed "depositpaid": true</pre>
@@ -207,11 +236,20 @@ curl -si -H 'Accept: application/xml' "$BASE_URL/booking/$BOOKING_ID"
         <h2>RB-003 — Decimal prices lose precision</h2>
         <p><span class="high">High · P1</span> · <code>POST /booking</code></p>
         <ul class="facts">
-          <li><strong>Why defect:</strong> the Number field accepts 10.99 but silently stores 10; no integer-only rule is declared.</li>
-          <li><strong>Expected / actual:</strong> 10.99 should round-trip; response and later GET contain 10.</li>
-          <li><strong>Impact:</strong> incorrect charges, invoices and financial reconciliation.</li>
+          <li>
+            <strong>Why defect:</strong> the Number field accepts 10.99 but silently stores 10; no
+            integer-only rule is declared.
+          </li>
+          <li>
+            <strong>Expected / actual:</strong> 10.99 should round-trip; response and later GET
+            contain 10.
+          </li>
+          <li>
+            <strong>Impact:</strong> incorrect charges, invoices and financial reconciliation.
+          </li>
         </ul>
-        <pre>curl -s -X POST "$BASE_URL/booking" \
+        <pre>
+curl -s -X POST "$BASE_URL/booking" \
   -H 'Content-Type: application/json' -H 'Accept: application/json' \
   --data '{"firstname":"Ana","lastname":"QA","totalprice":10.99,"depositpaid":false,"bookingdates":{"checkin":"2026-11-01","checkout":"2026-11-02"},"additionalneeds":"None"}' | jq .
 # Sent 10.99; observed 10</pre>
@@ -221,17 +259,28 @@ curl -si -H 'Accept: application/xml' "$BASE_URL/booking/$BOOKING_ID"
         <h2>RB-004 — Invalid dates create corrupt records</h2>
         <p><span class="high">High · P1</span> · <code>POST /booking</code></p>
         <ul class="facts">
-          <li><strong>Why defect:</strong> impossible/non-date input cannot satisfy the date contract, yet a resource is created.</li>
-          <li><strong>Expected / actual:</strong> 400/422 and no creation; actual is 200 and values can become <code>0NaN-aN-aN</code>.</li>
-          <li><strong>Impact:</strong> availability, date searches, reports and downstream parsers may fail.</li>
+          <li>
+            <strong>Why defect:</strong> impossible/non-date input cannot satisfy the date contract,
+            yet a resource is created.
+          </li>
+          <li>
+            <strong>Expected / actual:</strong> 400/422 and no creation; actual is 200 and values
+            can become <code>0NaN-aN-aN</code>.
+          </li>
+          <li>
+            <strong>Impact:</strong> availability, date searches, reports and downstream parsers may
+            fail.
+          </li>
         </ul>
-        <pre>curl -si -X POST "$BASE_URL/booking" \
+        <pre>
+curl -si -X POST "$BASE_URL/booking" \
   -H 'Content-Type: application/json' -H 'Accept: application/json' \
   --data '{"firstname":"Ana","lastname":"QA","totalprice":100,"depositpaid":false,"bookingdates":{"checkin":"not-a-date","checkout":"2026-02-30"},"additionalneeds":"None"}'
 # Observed HTTP 200; date example "0NaN-aN-aN"</pre>
       </section>
 
-      <pre>TOKEN=$(curl -s -X POST "$BASE_URL/auth" -H 'Content-Type: application/json' \
+      <pre>
+TOKEN=$(curl -s -X POST "$BASE_URL/auth" -H 'Content-Type: application/json' \
   --data '{"username":"admin","password":"password123"}' | jq -r .token)
 MISSING_ID=999999999</pre>
 
@@ -239,11 +288,20 @@ MISSING_ID=999999999</pre>
         <h2>RB-005 — PUT/PATCH absent booking returns 405</h2>
         <p><span class="medium">Medium · P1</span> · <code>PUT/PATCH /booking/:id</code></p>
         <ul class="facts">
-          <li><strong>Why defect:</strong> both methods are supported; 405 incorrectly says they are not allowed. The target is simply absent.</li>
-          <li><strong>Expected / actual:</strong> 404 or documented alternative; actual is 405 for both.</li>
-          <li><strong>Impact:</strong> client retry logic and diagnostics branch on the wrong cause.</li>
+          <li>
+            <strong>Why defect:</strong> both methods are supported; 405 incorrectly says they are
+            not allowed. The target is simply absent.
+          </li>
+          <li>
+            <strong>Expected / actual:</strong> 404 or documented alternative; actual is 405 for
+            both.
+          </li>
+          <li>
+            <strong>Impact:</strong> client retry logic and diagnostics branch on the wrong cause.
+          </li>
         </ul>
-        <pre>curl -si -X PATCH "$BASE_URL/booking/$MISSING_ID" \
+        <pre>
+curl -si -X PATCH "$BASE_URL/booking/$MISSING_ID" \
   -H "Cookie: token=$TOKEN" -H 'Content-Type: application/json' \
   --data '{"firstname":"Updated"}'
 # Repeat with PUT and a complete payload
@@ -254,11 +312,20 @@ MISSING_ID=999999999</pre>
         <h2>RB-006 — DELETE absent booking returns 405</h2>
         <p><span class="medium">Medium · P1</span> · <code>DELETE /booking/:id</code></p>
         <ul class="facts">
-          <li><strong>Why defect:</strong> DELETE is supported; 405 describes an unavailable method, not a missing resource.</li>
-          <li><strong>Expected / actual:</strong> 404 or documented idempotent 204; actual is 405.</li>
-          <li><strong>Impact:</strong> clients cannot distinguish absence from unsupported functionality.</li>
+          <li>
+            <strong>Why defect:</strong> DELETE is supported; 405 describes an unavailable method,
+            not a missing resource.
+          </li>
+          <li>
+            <strong>Expected / actual:</strong> 404 or documented idempotent 204; actual is 405.
+          </li>
+          <li>
+            <strong>Impact:</strong> clients cannot distinguish absence from unsupported
+            functionality.
+          </li>
         </ul>
-        <pre>curl -si -X DELETE "$BASE_URL/booking/$MISSING_ID" \
+        <pre>
+curl -si -X DELETE "$BASE_URL/booking/$MISSING_ID" \
   -H "Cookie: token=$TOKEN"
 # Observed: HTTP 405 Method Not Allowed</pre>
       </section>
@@ -267,11 +334,15 @@ MISSING_ID=999999999</pre>
         <h2>RB-007 — Missing fields produce HTTP 500</h2>
         <p><span class="medium">Medium · P1</span> · <code>POST /booking</code></p>
         <ul class="facts">
-          <li><strong>Why defect:</strong> valid JSON missing required fields is a client validation failure, not an internal server failure.</li>
+          <li>
+            <strong>Why defect:</strong> valid JSON missing required fields is a client validation
+            failure, not an internal server failure.
+          </li>
           <li><strong>Expected / actual:</strong> 400/422 with useful detail; actual is 500.</li>
           <li><strong>Impact:</strong> false reliability alarms and unsafe automatic retries.</li>
         </ul>
-        <pre>curl -si -X POST "$BASE_URL/booking" \
+        <pre>
+curl -si -X POST "$BASE_URL/booking" \
   -H 'Content-Type: application/json' -H 'Accept: application/json' \
   --data '{"firstname":"Ana"}'
 # Observed: HTTP 500 Internal Server Error</pre>
@@ -281,11 +352,21 @@ MISSING_ID=999999999</pre>
         <h2>RB-008 — Invalid credentials return HTTP 200</h2>
         <p><span class="medium">Medium · P1</span> · <code>POST /auth</code></p>
         <ul class="facts">
-          <li><strong>Why defect:</strong> the body reports failure while the protocol status reports success.</li>
-          <li><strong>Expected / actual:</strong> 401 (or defined 403); actual is 200 with <code>Bad credentials</code>.</li>
-          <li><strong>Impact:</strong> gateways undercount failures and generic clients may continue without a token.</li>
+          <li>
+            <strong>Why defect:</strong> the body reports failure while the protocol status reports
+            success.
+          </li>
+          <li>
+            <strong>Expected / actual:</strong> 401 (or defined 403); actual is 200 with
+            <code>Bad credentials</code>.
+          </li>
+          <li>
+            <strong>Impact:</strong> gateways undercount failures and generic clients may continue
+            without a token.
+          </li>
         </ul>
-        <pre>curl -si -X POST "$BASE_URL/auth" -H 'Content-Type: application/json' \
+        <pre>
+curl -si -X POST "$BASE_URL/auth" -H 'Content-Type: application/json' \
   --data '{"username":"admin","password":"wrong-password"}'
 # HTTP 200 OK
 # {"reason":"Bad credentials"}</pre>

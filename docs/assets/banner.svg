@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="restful-booker-quality-suite · API quality gates for the Restful Booker API">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#55DFBD" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+    <clipPath id="r"><rect width="1280" height="320" rx="20"/></clipPath>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="1280" height="320" fill="#071B2B"/>
+    <rect width="1280" height="320" fill="url(#grid)"/>
+    <rect x="0" y="0" width="8" height="320" fill="#55DFBD"/>
+  </g>
+  <g font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+    <text x="64" y="104" font-size="44" font-weight="700" fill="#F4F7F5">restful-booker</text>
+    <text x="64" y="152" font-size="44" font-weight="700" fill="#F4F7F5">quality-suite</text>
+    <text x="66" y="196" font-size="21" fill="#F4F7F5">Release-style API testing for Restful Booker.</text>
+    <text x="66" y="226" font-size="19" fill="#ABC0C8">Playwright · TypeScript · Zod contracts · four CI gates</text>
+    <text x="66" y="276" font-size="15" font-weight="600" fill="#55DFBD">Cristian Guerra · QA · Medellín</text>
+  </g>
+  <rect x="736" y="56" width="480" height="208" rx="16" fill="#0D2638" stroke="#214456"/>
+  <circle cx="760" cy="80" r="5" fill="#214456"/><circle cx="778" cy="80" r="5" fill="#214456"/><circle cx="796" cy="80" r="5" fill="#214456"/>
+  <g font-family="Menlo,Consolas,monospace" font-size="15">
+    <text x="760" y="122" fill="#F4F7F5">$ npm run quality</text>
+    <text x="760" y="156" fill="#55DFBD">✓ <tspan fill="#F4F7F5">Prettier · ESLint · TypeScript</tspan></text>
+    <text x="760" y="184" fill="#55DFBD">✓ <tspan fill="#F4F7F5">43 passed (2.0s)</tspan></text>
+    <text x="760" y="212" fill="#FFC56E">! <tspan fill="#F4F7F5">9 expected failures · RB-001…RB-008</tspan></text>
+    <text x="760" y="242" fill="#8FA6B0">verified run · 2026-10-16</text>
+  </g>
+</svg>

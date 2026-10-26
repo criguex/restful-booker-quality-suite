@@ -1,14 +1,16 @@
+[Leer en español](README.es.md)
+
 <div align="center">
 
-# 🏨 Restful Booker — API Quality Engineering
+<img src="docs/assets/banner.svg" alt="restful-booker-quality-suite: release-style API testing for Restful Booker with Playwright, TypeScript and Zod" width="100%" />
 
 **A production-shaped API quality framework built with Playwright, TypeScript and Zod — combining lifecycle automation, strict contract validation, negative testing, performance budgets and release-focused reporting.**
 
 [![CI](https://github.com/criguex/restful-booker-quality-suite/actions/workflows/tests.yml/badge.svg)](https://github.com/criguex/restful-booker-quality-suite/actions/workflows/tests.yml)
-[![Playwright](https://img.shields.io/badge/Playwright-1.56-2EAD33?logo=playwright&logoColor=white)](https://playwright.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Contracts](https://img.shields.io/badge/contracts-Zod-3068B7)](https://zod.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Playwright](https://img.shields.io/badge/Playwright-1.56-2EAD33?logo=playwright&logoColor=white&style=flat-square)](https://playwright.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?logo=typescript&logoColor=white&style=flat-square)](https://www.typescriptlang.org/)
+[![Contracts](https://img.shields.io/badge/contracts-Zod-3068B7?style=flat-square)](https://zod.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-55DFBD?style=flat-square&labelColor=071B2B)](LICENSE)
 
 </div>
 
@@ -55,14 +57,22 @@ Full prioritization and release decisions live in
 [`docs/DEFECTS.md`](docs/DEFECTS.md). The verified assessment outcome is summarized
 in [`docs/EXECUTION_REPORT.md`](docs/EXECUTION_REPORT.md).
 
-## 🎬 Visual walkthrough
+## 🔄 How it works
+
+![How the suite runs on every push: pinned Restful Booker in Docker, health check, static gates, four Playwright projects, known defects as expected failures, HTML report](docs/assets/how-it-works.svg)
 
 <p align="center">
-  <img src="docs/assets/restful-booker-quality-flow.gif" width="360" alt="Animated walkthrough of the Restful Booker quality pipeline" />
+  <img src="docs/assets/how-it-works.gif" width="720" alt="Animated replay of the verified run: static gates, four Playwright projects, known defect RB-002 kept as an expected failure, 43 passed" />
 </p>
 
-Download the full-resolution vertical short:
-[`restful-booker-quality-short.mp4`](docs/assets/restful-booker-quality-short.mp4).
+The animation replays the verified run of 16 October 2026 from
+[`docs/EXECUTION_REPORT.md`](docs/EXECUTION_REPORT.md); it is rendered from
+[`docs/scenes/how-it-works.html`](docs/scenes/how-it-works.html) with
+[`docs/scenes/export.sh`](docs/scenes/export.sh) (also as
+[`how-it-works.mp4`](docs/assets/how-it-works.mp4)). A vertical short made with Remotion is in
+[`restful-booker-quality-short.mp4`](docs/assets/restful-booker-quality-short.mp4), source in
+[`showcase/`](showcase). The expanded flow, ownership model and failure paths are documented
+in [`docs/TEST_FLOW.md`](docs/TEST_FLOW.md).
 
 ## ✨ Engineering highlights
 
@@ -72,60 +82,9 @@ Download the full-resolution vertical short:
 - **Honest known-defect handling** — expected failure becomes an unexpected pass when fixed.
 - **Parallel-safe API design** — no dependency on seeded IDs or test execution order.
 - **Four CI gates** — functional, contract, component and performance concerns stay independently visible.
-- **Failure artifacts** — HTML, JUnit and Playwright traces are uploaded from CI.
+- **Failure artifacts** — the HTML report, with traces of failed tests, is uploaded from CI; JUnit XML is written to `test-results/`.
 - **Pinned system under test** — CI checks out a known revision and builds it in Docker.
 - **Static quality** — ESLint, Prettier and strict TypeScript run before the suites.
-
-## 🏗️ Architecture
-
-```mermaid
-flowchart LR
-  CI[GitHub Actions] --> SUT[Restful Booker · Docker]
-  CI --> QG[Quality gates]
-  QG --> API[API integration]
-  QG --> CONTRACT[Zod contracts]
-  QG --> PERF[Performance budgets]
-  API --> FIX[Data builders + cleanup]
-  CONTRACT --> SCHEMA[Versioned schemas]
-  API --> SUT
-  CONTRACT --> SUT
-  PERF --> SUT
-  API --> REPORT[HTML · JUnit · traces]
-  CONTRACT --> REPORT
-  PERF --> REPORT
-```
-
-## 🔄 Test execution flow
-
-```mermaid
-flowchart TD
-  A[Developer or CI trigger] --> B[Start pinned API in Docker]
-  B --> C{Health ready?}
-  C -- No --> X[Stop · collect container logs]
-  C -- Yes --> D[Static gates]
-  D --> D1[Prettier]
-  D --> D2[ESLint]
-  D --> D3[TypeScript]
-  D1 --> E[Playwright projects]
-  D2 --> E
-  D3 --> E
-  E --> F[API integration]
-  E --> G[Zod contracts]
-  E --> H[Performance budgets]
-  F --> I[Create isolated booking data]
-  I --> J[Exercise auth · CRUD · filters · negatives]
-  J --> K[Cleanup in finally]
-  G --> L[Detect response drift]
-  H --> M[Evaluate p95 and endpoint latency]
-  K --> N{All release gates pass?}
-  L --> N
-  M --> N
-  N -- No --> O[HTML · JUnit · traces · logs]
-  N -- Yes --> P[Release confidence]
-```
-
-The expanded flow, ownership model and failure paths are documented in
-[`docs/TEST_FLOW.md`](docs/TEST_FLOW.md).
 
 ## 📁 Structure
 
@@ -142,9 +101,10 @@ restful-booker-quality-suite/
 ├── docs/
 │   ├── TEST_STRATEGY.md              # Risk model and release policy
 │   ├── TEST_FLOW.md                  # Execution and failure-flow diagrams
-│   ├── assets/                       # GIF and full-resolution short
+│   ├── assets/                       # Banner, diagram, GIF/MP4 and vertical short
+│   ├── scenes/                       # Source and export script of the GIF
 │   └── DEFECTS.md                    # Reproducible confirmed findings
-├── showcase/                         # Remotion source for visual walkthrough
+├── showcase/                         # Remotion source of the vertical short
 ├── .github/workflows/tests.yml       # Docker-backed CI pipeline
 ├── playwright.config.ts              # Four Playwright projects
 └── CONTRIBUTING.md                   # Quality contribution policy
@@ -210,7 +170,7 @@ For every push and pull request, GitHub Actions:
 
 ## 👤 Author
 
-**Cristian Guerra** — Senior QA Automation Engineer
+**Cristian Guerra** — Senior QA Automation Engineer · Medellín, Colombia
 
 [GitHub](https://github.com/criguex)
 

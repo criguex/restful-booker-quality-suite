@@ -8,14 +8,13 @@ import {
 } from "remotion";
 
 const C = {
-  bg: "#07111f",
-  panel: "#101f33",
-  green: "#45d483",
-  blue: "#56a8ff",
-  amber: "#ffbf5b",
-  red: "#ff6b76",
-  text: "#f4f8ff",
-  muted: "#9bb0c9",
+  bg: "#071B2B",
+  panel: "#0D2638",
+  glow: "#123448",
+  green: "#55DFBD",
+  red: "#FB8176",
+  text: "#F4F7F5",
+  muted: "#ABC0C8",
 };
 
 const Frame: React.FC<React.PropsWithChildren<{ eyebrow: string }>> = ({
@@ -24,7 +23,7 @@ const Frame: React.FC<React.PropsWithChildren<{ eyebrow: string }>> = ({
 }) => (
   <AbsoluteFill
     style={{
-      background: `radial-gradient(circle at 80% 10%, #18375b 0%, ${C.bg} 48%)`,
+      background: `radial-gradient(circle at 80% 10%, ${C.glow} 0%, ${C.bg} 48%)`,
       color: C.text,
       fontFamily: "Inter, Arial, sans-serif",
       padding: "120px 86px",
@@ -110,11 +109,11 @@ const Intro = () => {
 const Pipeline = () => {
   const frame = useCurrentFrame();
   const stages = [
-    ["01", "Docker target", C.blue],
+    ["01", "Docker target", C.green],
     ["02", "Smoke gate", C.green],
     ["03", "API regression", C.green],
-    ["04", "Zod contracts", C.amber],
-    ["05", "Performance", C.blue],
+    ["04", "Zod contracts", C.green],
+    ["05", "Performance", C.green],
     ["06", "Reports + CI", C.green],
   ] as const;
   return (
@@ -175,7 +174,7 @@ const Coverage = () => {
         }}
       >
         {Math.round(
-          interpolate(frame, [0, 1.5 * fps], [0, 27], {
+          interpolate(frame, [0, 1.5 * fps], [0, 43], {
             extrapolateRight: "clamp",
           }),
         )}
@@ -238,7 +237,7 @@ const Defect = () => {
           marginTop: 80,
           padding: "52px 42px",
           borderRadius: 28,
-          backgroundColor: "#1a1720",
+          backgroundColor: C.panel,
           border: `3px solid ${C.red}`,
           opacity: interpolate(frame, [0.3 * fps, 1 * fps], [0, 1], {
             extrapolateLeft: "clamp",
@@ -288,7 +287,7 @@ const Outro = () => {
         RISKS VISIBLE.
       </div>
       <div
-        style={{ marginTop: 75, color: C.blue, fontSize: 44, fontWeight: 800 }}
+        style={{ marginTop: 75, color: C.green, fontSize: 44, fontWeight: 800 }}
       >
         criguex/restful-booker-quality-suite
       </div>

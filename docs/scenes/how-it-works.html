@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=block"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 960px;
+        height: 540px;
+        overflow: hidden;
+        background: #071b2b;
+      }
+      body {
+        font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+        color: #f4f7f5;
+        position: relative;
+        background-image:
+          linear-gradient(rgba(85, 223, 189, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(85, 223, 189, 0.06) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 8px;
+        height: 540px;
+        background: #55dfbd;
+      }
+      h1 {
+        position: absolute;
+        left: 40px;
+        top: 26px;
+        margin: 0;
+        font:
+          26px 'Archivo Black',
+          sans-serif;
+        letter-spacing: 0.5px;
+      }
+      .sub {
+        position: absolute;
+        left: 42px;
+        top: 66px;
+        font-size: 15px;
+        color: #abc0c8;
+      }
+      .term {
+        position: absolute;
+        left: 40px;
+        top: 108px;
+        width: 470px;
+        height: 340px;
+        background: #0d2638;
+        border: 1px solid #214456;
+        border-radius: 14px;
+        box-sizing: border-box;
+        padding: 40px 22px 0;
+        font:
+          16px/1.85 'JetBrains Mono',
+          Menlo,
+          monospace;
+      }
+      .dots {
+        position: absolute;
+        left: 20px;
+        top: 16px;
+      }
+      .dots i {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #214456;
+        margin-right: 7px;
+      }
+      .ln {
+        opacity: 0;
+        white-space: nowrap;
+      }
+      .ok {
+        color: #55dfbd;
+      }
+      .warn {
+        color: #ffc56e;
+      }
+      .bad {
+        color: #fb8176;
+      }
+      .mut {
+        color: #8fa6b0;
+      }
+      .flow {
+        position: absolute;
+        left: 540px;
+        top: 108px;
+        width: 380px;
+      }
+      .node {
+        height: 46px;
+        margin-bottom: 12px;
+        border-radius: 12px;
+        background: #0d2638;
+        border: 1.5px solid #214456;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        font-size: 15px;
+        font-weight: 600;
+        box-sizing: border-box;
+      }
+      .node b {
+        width: 26px;
+        color: #8fa6b0;
+        font-weight: 700;
+      }
+      .node.on {
+        border-color: #55dfbd;
+      }
+      .node.on b {
+        color: #55dfbd;
+      }
+      .defect {
+        position: absolute;
+        left: 540px;
+        top: 344px;
+        width: 380px;
+        height: 104px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        background: #0d2638;
+        border: 1.5px solid #ffc56e;
+        padding: 12px 16px;
+        opacity: 0;
+      }
+      .defect .t {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      .defect .c {
+        font:
+          13px/1.6 'JetBrains Mono',
+          Menlo,
+          monospace;
+        color: #abc0c8;
+      }
+      .foot {
+        position: absolute;
+        left: 40px;
+        top: 474px;
+        width: 880px;
+        font-size: 17px;
+        font-weight: 600;
+        opacity: 0;
+      }
+      .sig {
+        position: absolute;
+        left: 40px;
+        bottom: 16px;
+        font-size: 13px;
+        color: #55dfbd;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar"></div>
+    <h1>restful-booker-quality-suite</h1>
+    <div class="sub">Replay of the verified run of 2026-10-16 · docs/EXECUTION_REPORT.md</div>
+    <div class="term">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div class="ln" data-t="0.3">$ npm run quality</div>
+      <div class="ln" data-t="1.0"><span class="ok">✓</span> Prettier · ESLint · TypeScript</div>
+      <div class="ln" data-t="2.0"><span class="mut">▸ playwright test · 4 projects</span></div>
+      <div class="ln" data-t="2.8"><span class="ok">✓</span> api</div>
+      <div class="ln" data-t="3.4"><span class="ok">✓</span> contract · component</div>
+      <div class="ln" data-t="4.0"><span class="ok">✓</span> performance</div>
+      <div class="ln" data-t="5.2"><span class="warn">!</span> 9 expected failures (test.fail)</div>
+      <div class="ln" data-t="9.4"><span class="ok">✓ 43 passed (2.0s)</span></div>
+    </div>
+    <div class="flow">
+      <div class="node" data-on="0.3"><b>1</b>Target up on 127.0.0.1:3001</div>
+      <div class="node" data-on="1.0"><b>2</b>Static gates</div>
+      <div class="node" data-on="2.8"><b>3</b>api · contract · component · perf</div>
+      <div class="node" data-on="5.2"><b>4</b>Known defects stay visible</div>
+    </div>
+    <div class="defect" data-t="5.8">
+      <div class="t"><span class="warn">!</span> RB-002 · XML false becomes true</div>
+      <div class="c">
+        sent &lt;depositpaid&gt;false&lt;/depositpaid&gt;<br /><span class="bad"
+          >got depositpaid: true</span
+        ><br />fixed one day → unexpected pass → red
+      </div>
+    </div>
+    <div class="foot" data-t="10.2">
+      <span class="ok">✓</span> 43 checks · 8 confirmed defects · GitHub Actions run: success in 53
+      s
+    </div>
+    <div class="sig">Cristian Guerra · QA · Medellín</div>
+    <script>
+      const t = parseFloat(new URLSearchParams(location.search).get('t') || '99');
+      const fade = (t0) => Math.max(0, Math.min(1, (t - t0) / 0.35));
+      document.querySelectorAll('[data-t]').forEach((e) => {
+        const f = fade(parseFloat(e.dataset.t));
+        e.style.opacity = f;
+        e.style.transform = `translateY(${(1 - f) * 8}px)`;
+      });
+      document.querySelectorAll('[data-on]').forEach((e) => {
+        if (t >= parseFloat(e.dataset.on)) e.classList.add('on');
+      });
+    </script>
+  </body>
+</html>

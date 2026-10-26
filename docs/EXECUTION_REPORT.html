@@ -257,12 +257,13 @@
       <p>
         These are classified as defects because they violate measurable test oracles: HTTP status
         semantics, the declared media type, required-field validation, or preservation of accepted
-        business data. The finding is therefore based on expected-versus-actual evidence rather
-        than personal preference. The accompanying <strong>Detailed Defect Report</strong> contains
-        an expanded rationale, business impact and executable <code>curl</code> reproduction for
-        every RB item.
+        business data. The finding is therefore based on expected-versus-actual evidence rather than
+        personal preference. The accompanying <strong>Detailed Defect Report</strong> contains an
+        expanded rationale, business impact and executable <code>curl</code> reproduction for every
+        RB item.
       </p>
-      <pre># Common reproduction target
+      <pre>
+# Common reproduction target
 BASE_URL=http://127.0.0.1:3001
 
 # Example: bad authentication is reported as protocol success
