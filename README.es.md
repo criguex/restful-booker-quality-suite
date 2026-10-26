@@ -16,6 +16,43 @@
 
 ---
 
+## 🧒 Explicado para un niño de 8 años
+
+Imagina un hotel donde un robot en la recepción toma las reservas de habitaciones. Este proyecto es
+un equipo de huéspedes de mentiras: reservan una habitación, la cambian, la cancelan y revisan que
+el hotel haya anotado todo bien. También miden qué tan rápido responde el hotel. Cuando el hotel se
+equivoca, el error queda en una lista pegada en la pared para que nadie lo olvide. Y cada vez que
+alguien cambia el código, un robot vuelve a correr todas las revisiones.
+
+<p align="center">
+  <img src="docs/assets/explained.gif" width="720" alt="Historia ilustrada: un huésped reserva diciendo que no ha pagado el depósito, el hotel guarda que sí, la revisión lo atrapa y deja el bug RB-002 en la pared, y cuatro robots corren los 43 chequeos" />
+</p>
+
+### Un ejemplo real
+
+- **Imagina** que reservas una habitación y dices "todavía **no** he pagado el depósito". Lo mandas
+  en XML, una forma más vieja que usan los computadores para escribirse mensajes.
+- **Qué pasa:** el hotel guarda "depósito pagado: **sí**". Tu _no_ se volvió un _sí_. Es el defecto
+  RB-002 de [`docs/DEFECTS.md`](docs/DEFECTS.md).
+- **Qué hace el proyecto:** una revisión compara lo que mandaste con lo que guardó el hotel y
+  atrapa la diferencia. El bug se deja a propósito como _fallo esperado_: la corrida sigue en verde
+  y, el día que el hotel lo arregle, la revisión se pone en rojo para avisar "quita esto de la
+  lista".
+- **Qué ganamos:** un hotel que cree que pagaste cuando no lo hiciste es un problema de plata. Ahora
+  queda anotado, cualquiera lo repite con `npm run test:defects` y no se puede olvidar.
+
+### Palabras difíciles
+
+| Palabra              | Qué significa                                                                          |
+| -------------------- | -------------------------------------------------------------------------------------- |
+| **API**              | La ventanilla del hotel: los programas le piden cosas y ella responde.                 |
+| **Prueba / chequeo** | Un programa pequeño que pregunta algo y compara la respuesta con la correcta.          |
+| **Contrato (Zod)**   | La forma que debe tener una respuesta, como un formulario con cada casilla bien llena. |
+| **CI**               | Un robot que corre todas las revisiones cada vez que alguien entrega un cambio.        |
+| **Docker**           | Una caja que hace funcionar el hotel igualito en cualquier computador.                 |
+| **Fallo esperado**   | Un bug conocido que se deja a propósito para que siga visible hasta que lo arreglen.   |
+| **p95**              | De cada 100 respuestas, 95 llegan más rápido que este tiempo.                          |
+
 ## 🎯 Qué demuestra este proyecto
 
 Este repositorio trata el reto de Restful Booker como un release pequeño, no como una
@@ -102,7 +139,7 @@ restful-booker-quality-suite/
 │   ├── TEST_STRATEGY.md              # Modelo de riesgo y política de release
 │   ├── TEST_FLOW.md                  # Diagramas de ejecución y de caminos de falla
 │   ├── assets/                       # Banner, diagrama, GIF/MP4 y short vertical
-│   ├── scenes/                       # Fuente y script de exportación del GIF
+│   ├── scenes/                       # Fuentes y script de exportación de los GIF
 │   └── DEFECTS.md                    # Hallazgos confirmados y reproducibles
 ├── showcase/                         # Fuente en Remotion del short vertical
 ├── .github/workflows/tests.yml       # Pipeline de CI con Docker

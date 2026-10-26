@@ -16,6 +16,42 @@
 
 ---
 
+## 🧒 Explained like you're 8
+
+Imagine a hotel where a robot at the front desk takes room bookings. This project is a team of
+pretend guests: they book a room, change it, cancel it, and check that the hotel wrote everything
+down right. They also time how fast the hotel answers. When the hotel gets something wrong, the
+mistake goes on a list on the wall so nobody forgets it. And every time someone changes the code,
+a robot runs all the checks again.
+
+<p align="center">
+  <img src="docs/assets/explained.gif" width="720" alt="Illustrated story: a guest books a room saying the deposit is not paid, the hotel saves yes, the check catches it and keeps bug RB-002 on the wall, then four robots run all 43 checks" />
+</p>
+
+### A real example
+
+- **Imagine** you book a room and say "I have **not** paid the deposit yet". You send it in XML,
+  an older way computers write messages to each other.
+- **What happens:** the hotel saves "deposit paid: **yes**". Your _no_ turned into a _yes_. This is
+  defect RB-002 in [`docs/DEFECTS.md`](docs/DEFECTS.md).
+- **What the project does:** a check compares what you sent with what the hotel saved and catches
+  the difference. The bug is kept on purpose as an _expected failure_: the run stays green, and
+  the day the hotel fixes it, the check turns red to say "take this off the list".
+- **What we gain:** a hotel that thinks you paid when you did not is a money problem. Now it is
+  written down, anyone can repeat it with `npm run test:defects`, and it cannot be forgotten.
+
+### Hard words
+
+| Word                 | What it means                                                                       |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| **API**              | The hotel's service window: programs ask it for things and it answers.              |
+| **Test / check**     | A small program that asks something and compares the answer with the right one.     |
+| **Contract (Zod)**   | The shape an answer must have, like a form where every box is filled the right way. |
+| **CI**               | A robot that runs every check each time someone hands in a change.                  |
+| **Docker**           | A box that runs the hotel exactly the same way on any computer.                     |
+| **Expected failure** | A known bug kept on purpose, so it stays visible until someone fixes it.            |
+| **p95**              | Out of 100 answers, 95 arrive faster than this time.                                |
+
 ## 🎯 What this project proves
 
 This repository treats the Restful Booker challenge as a small release, not as a
@@ -101,8 +137,8 @@ restful-booker-quality-suite/
 ├── docs/
 │   ├── TEST_STRATEGY.md              # Risk model and release policy
 │   ├── TEST_FLOW.md                  # Execution and failure-flow diagrams
-│   ├── assets/                       # Banner, diagram, GIF/MP4 and vertical short
-│   ├── scenes/                       # Source and export script of the GIF
+│   ├── assets/                       # Banner, diagram, GIFs/MP4s and vertical short
+│   ├── scenes/                       # Sources and export script of the GIFs
 │   └── DEFECTS.md                    # Reproducible confirmed findings
 ├── showcase/                         # Remotion source of the vertical short
 ├── .github/workflows/tests.yml       # Docker-backed CI pipeline

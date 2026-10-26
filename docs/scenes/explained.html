@@ -1,0 +1,454 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=block"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 960px;
+        height: 540px;
+        overflow: hidden;
+        background: #071b2b;
+      }
+      body {
+        font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+        color: #f4f7f5;
+        position: relative;
+        background-image:
+          linear-gradient(rgba(85, 223, 189, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(85, 223, 189, 0.06) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 8px;
+        height: 540px;
+        background: #55dfbd;
+      }
+      .top {
+        position: absolute;
+        left: 36px;
+        top: 22px;
+        font-size: 15px;
+        color: #abc0c8;
+        font-weight: 600;
+      }
+      svg.stage {
+        position: absolute;
+        left: 0;
+        top: 50px;
+      }
+      .cap {
+        position: absolute;
+        left: 36px;
+        right: 36px;
+        top: 432px;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.2;
+        opacity: 0;
+      }
+      .m {
+        color: #55dfbd;
+      }
+      .c {
+        color: #fb8176;
+      }
+      .g {
+        color: #ffc56e;
+      }
+      .dots {
+        position: absolute;
+        left: 36px;
+        bottom: 18px;
+      }
+      .dots i {
+        display: inline-block;
+        width: 26px;
+        height: 6px;
+        border-radius: 3px;
+        background: #214456;
+        margin-right: 6px;
+      }
+      .dots i.on {
+        background: #55dfbd;
+      }
+      .sig {
+        position: absolute;
+        right: 36px;
+        bottom: 14px;
+        font-size: 13px;
+        color: #55dfbd;
+        font-weight: 600;
+      }
+      text {
+        font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+      }
+      .mono {
+        font-family: 'JetBrains Mono', Menlo, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bar"></div>
+    <div class="top">restful-booker-quality-suite · explained</div>
+    <svg class="stage" width="960" height="380" viewBox="0 0 960 380">
+      <defs>
+        <symbol id="robot" viewBox="0 0 100 130">
+          <line x1="50" y1="4" x2="50" y2="20" stroke="#55DFBD" stroke-width="4" />
+          <circle cx="50" cy="6" r="6" fill="#55DFBD" />
+          <rect
+            x="14"
+            y="20"
+            width="72"
+            height="54"
+            rx="14"
+            fill="#0D2638"
+            stroke="#55DFBD"
+            stroke-width="4"
+          />
+          <circle cx="36" cy="46" r="7" fill="#55DFBD" />
+          <circle cx="64" cy="46" r="7" fill="#55DFBD" />
+          <path
+            d="M38 62 Q50 68 62 62"
+            stroke="#55DFBD"
+            stroke-width="4"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <rect
+            x="24"
+            y="80"
+            width="52"
+            height="46"
+            rx="10"
+            fill="#123448"
+            stroke="#214456"
+            stroke-width="3"
+          />
+        </symbol>
+        <symbol id="person" viewBox="0 0 100 130">
+          <circle cx="50" cy="32" r="24" fill="#ABC0C8" />
+          <circle cx="42" cy="30" r="3.5" fill="#071B2B" />
+          <circle cx="58" cy="30" r="3.5" fill="#071B2B" />
+          <path
+            d="M41 40 Q50 46 59 40"
+            stroke="#071B2B"
+            stroke-width="3"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <rect
+            x="18"
+            y="62"
+            width="64"
+            height="64"
+            rx="22"
+            fill="#123448"
+            stroke="#214456"
+            stroke-width="3"
+          />
+        </symbol>
+        <marker
+          id="ar"
+          viewBox="0 0 10 10"
+          refX="8"
+          refY="5"
+          markerWidth="6"
+          markerHeight="6"
+          orient="auto"
+        >
+          <path d="M0 0L10 5L0 10z" fill="#55DFBD" />
+        </marker>
+      </defs>
+
+      <g id="b1">
+        <use href="#person" x="90" y="150" width="150" height="195" />
+        <rect
+          x="250"
+          y="120"
+          width="250"
+          height="120"
+          rx="14"
+          fill="#0D2638"
+          stroke="#214456"
+          stroke-width="2"
+        />
+        <text x="270" y="155" font-size="20" font-weight="700" fill="#F4F7F5">Booking form</text>
+        <text x="270" y="190" font-size="18" fill="#ABC0C8">Room for 1 night</text>
+        <text x="270" y="220" font-size="18" fill="#ABC0C8">
+          Deposit paid?
+          <tspan fill="#F4F7F5" font-weight="700">NO</tspan>
+        </text>
+        <path
+          id="arrow1"
+          d="M510 180 H610"
+          stroke="#55DFBD"
+          stroke-width="5"
+          marker-end="url(#ar)"
+        />
+        <rect
+          x="640"
+          y="60"
+          width="250"
+          height="290"
+          rx="16"
+          fill="#0D2638"
+          stroke="#214456"
+          stroke-width="2"
+        />
+        <text x="765" y="98" font-size="22" font-weight="700" fill="#F4F7F5" text-anchor="middle">
+          HOTEL
+        </text>
+        <use href="#robot" x="700" y="120" width="130" height="169" />
+        <rect x="660" y="292" width="210" height="40" rx="8" fill="#123448" />
+        <text x="765" y="318" font-size="16" fill="#ABC0C8" text-anchor="middle">booking desk</text>
+      </g>
+
+      <g id="b2">
+        <use href="#person" x="90" y="150" width="150" height="195" />
+        <rect x="70" y="40" width="230" height="80" rx="18" fill="#F4F7F5" />
+        <path d="M150 120 L170 146 L182 120 Z" fill="#F4F7F5" />
+        <text x="185" y="90" font-size="26" font-weight="700" fill="#071B2B" text-anchor="middle">
+          I said NO!
+        </text>
+        <use href="#robot" x="640" y="150" width="130" height="169" />
+        <rect
+          x="380"
+          y="130"
+          width="250"
+          height="120"
+          rx="14"
+          fill="#0D2638"
+          stroke="#FB8176"
+          stroke-width="3"
+        />
+        <text x="400" y="165" font-size="20" font-weight="700" fill="#F4F7F5">Hotel saved:</text>
+        <text x="400" y="215" font-size="26" fill="#ABC0C8">
+          Deposit paid?
+          <tspan fill="#FB8176" font-weight="700">YES</tspan>
+        </text>
+      </g>
+
+      <g id="b3">
+        <rect
+          x="160"
+          y="110"
+          width="290"
+          height="140"
+          rx="14"
+          fill="#0D2638"
+          stroke="#FB8176"
+          stroke-width="3"
+        />
+        <text x="196" y="166" font-size="24" fill="#ABC0C8">
+          asked:
+          <tspan fill="#55DFBD" font-weight="700">NO</tspan>
+        </text>
+        <text x="196" y="210" font-size="24" fill="#ABC0C8">
+          saved:
+          <tspan fill="#FB8176" font-weight="700">YES</tspan>
+        </text>
+        <g id="lens">
+          <circle cx="270" cy="182" r="104" fill="none" stroke="#F4F7F5" stroke-width="10" />
+          <line
+            x1="345"
+            y1="257"
+            x2="410"
+            y2="325"
+            stroke="#F4F7F5"
+            stroke-width="16"
+            stroke-linecap="round"
+          />
+        </g>
+        <g id="bigx" transform="translate(560 120)">
+          <circle cx="60" cy="60" r="60" fill="#FB8176" />
+          <path
+            d="M35 35 L85 85 M85 35 L35 85"
+            stroke="#071B2B"
+            stroke-width="14"
+            stroke-linecap="round"
+          />
+        </g>
+        <g id="note" transform="translate(700 90) rotate(4)">
+          <rect width="200" height="170" rx="6" fill="#FFC56E" />
+          <text
+            x="100"
+            y="48"
+            font-size="24"
+            font-weight="700"
+            fill="#071B2B"
+            text-anchor="middle"
+            class="mono"
+          >
+            RB-002
+          </text>
+          <text x="100" y="90" font-size="19" fill="#071B2B" text-anchor="middle">known bug</text>
+          <text x="100" y="120" font-size="19" fill="#071B2B" text-anchor="middle">stays on</text>
+          <text x="100" y="146" font-size="19" fill="#071B2B" text-anchor="middle">the wall</text>
+        </g>
+      </g>
+
+      <g id="b4">
+        <g id="r0">
+          <use href="#robot" x="60" y="120" width="140" height="182" />
+          <text
+            x="130"
+            y="330"
+            font-size="20"
+            font-weight="700"
+            fill="#F4F7F5"
+            text-anchor="middle"
+          >
+            api
+          </text>
+        </g>
+        <g id="r1">
+          <use href="#robot" x="260" y="120" width="140" height="182" />
+          <text
+            x="330"
+            y="330"
+            font-size="20"
+            font-weight="700"
+            fill="#F4F7F5"
+            text-anchor="middle"
+          >
+            contract
+          </text>
+        </g>
+        <g id="r2">
+          <use href="#robot" x="460" y="120" width="140" height="182" />
+          <text
+            x="530"
+            y="330"
+            font-size="20"
+            font-weight="700"
+            fill="#F4F7F5"
+            text-anchor="middle"
+          >
+            component
+          </text>
+        </g>
+        <g id="r3">
+          <use href="#robot" x="660" y="120" width="140" height="182" />
+          <text
+            x="730"
+            y="330"
+            font-size="20"
+            font-weight="700"
+            fill="#F4F7F5"
+            text-anchor="middle"
+          >
+            performance
+          </text>
+        </g>
+        <g id="k0" transform="translate(160 100)">
+          <circle r="24" fill="#55DFBD" />
+          <path
+            d="M-11 0 L-3 9 L12 -9"
+            stroke="#071B2B"
+            stroke-width="6"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </g>
+        <g id="k1" transform="translate(360 100)">
+          <circle r="24" fill="#55DFBD" />
+          <path
+            d="M-11 0 L-3 9 L12 -9"
+            stroke="#071B2B"
+            stroke-width="6"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </g>
+        <g id="k2" transform="translate(560 100)">
+          <circle r="24" fill="#55DFBD" />
+          <path
+            d="M-11 0 L-3 9 L12 -9"
+            stroke="#071B2B"
+            stroke-width="6"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </g>
+        <g id="k3" transform="translate(760 100)">
+          <circle r="24" fill="#55DFBD" />
+          <path
+            d="M-11 0 L-3 9 L12 -9"
+            stroke="#071B2B"
+            stroke-width="6"
+            fill="none"
+            stroke-linecap="round"
+          />
+        </g>
+        <text
+          id="count"
+          x="860"
+          y="230"
+          font-size="64"
+          fill="#55DFBD"
+          text-anchor="middle"
+          style="font-family: 'Archivo Black', sans-serif"
+        >
+          43
+        </text>
+        <text id="countl" x="860" y="262" font-size="18" fill="#ABC0C8" text-anchor="middle">
+          checks
+        </text>
+      </g>
+    </svg>
+
+    <div class="cap" id="c1">
+      Our test pretends to be a <span class="m">guest</span> and books a room.
+    </div>
+    <div class="cap" id="c2">
+      The hotel saved it wrong: <span class="m">NO</span> became <span class="c">YES</span>.
+    </div>
+    <div class="cap" id="c3">
+      The check catches it and keeps the <span class="g">bug</span> on the wall.
+    </div>
+    <div class="cap" id="c4">
+      Every code change, a robot runs <span class="m">all 43 checks</span> again.
+    </div>
+
+    <div class="dots"><i id="d1"></i><i id="d2"></i><i id="d3"></i><i id="d4"></i></div>
+    <div class="sig">Cristian Guerra · QA · Medellín</div>
+
+    <script>
+      const t = parseFloat(new URLSearchParams(location.search).get('t') ?? '99');
+      const ease = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
+      const $ = (id) => document.getElementById(id);
+      const vis = (a, b) => Math.min(ease((t - a) / 0.35), b == null ? 1 : ease((b - t) / 0.35));
+      const beats = [
+        [0, 3],
+        [3, 6],
+        [6, 9],
+        [9, null],
+      ];
+      beats.forEach(([a, b], i) => {
+        const o = vis(a, b);
+        $('b' + (i + 1)).style.opacity = o;
+        $('c' + (i + 1)).style.opacity = o;
+        if (t >= a) $('d' + (i + 1)).classList.add('on');
+      });
+      const dash = 100 - 100 * ease((t - 0.8) / 0.8);
+      $('arrow1').setAttribute('stroke-dasharray', '100');
+      $('arrow1').setAttribute('stroke-dashoffset', dash);
+      const lx = -120 + 120 * ease((t - 6.2) / 0.8);
+      $('lens').setAttribute('transform', `translate(${lx} 0)`);
+      $('bigx').style.opacity = ease((t - 7.0) / 0.3);
+      $('note').style.opacity = ease((t - 7.6) / 0.3);
+      for (let i = 0; i < 4; i++) $('k' + i).style.opacity = ease((t - (9.6 + i * 0.4)) / 0.25);
+      const n = Math.round(43 * ease((t - 9.4) / 1.8));
+      $('count').textContent = n;
+    </script>
+  </body>
+</html>
