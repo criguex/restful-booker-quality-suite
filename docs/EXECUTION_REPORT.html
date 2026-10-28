@@ -374,10 +374,9 @@ curl -si -X POST "$BASE_URL/auth" -H 'Content-Type: application/json' \
       <h2>Reproduce the result</h2>
       <pre>
 git clone https://github.com/mwinteringham/restful-booker
-cd restful-booker
-docker compose up --build -d
-
 git clone https://github.com/criguex/restful-booker-quality-suite
+docker compose -f restful-booker/docker-compose.yml -f restful-booker-quality-suite/compose.loopback.yml up --build -d
+
 cd restful-booker-quality-suite
 npm ci
 npm run quality</pre>

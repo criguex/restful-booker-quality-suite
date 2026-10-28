@@ -152,11 +152,12 @@ restful-booker-quality-suite/
 
 ```bash
 git clone https://github.com/mwinteringham/restful-booker.git
-cd restful-booker
-docker compose up --build -d
+git clone https://github.com/criguex/restful-booker-quality-suite.git
+docker compose -f restful-booker/docker-compose.yml -f restful-booker-quality-suite/compose.loopback.yml up --build -d
+cd restful-booker-quality-suite
 ```
 
-The target should answer at `http://127.0.0.1:3001`.
+The target should answer at `http://127.0.0.1:3001`. [`compose.loopback.yml`](compose.loopback.yml) publishes the port on `127.0.0.1` only; the upstream `docker-compose.yml` on its own publishes it on every interface.
 
 ### 2. Install and execute
 

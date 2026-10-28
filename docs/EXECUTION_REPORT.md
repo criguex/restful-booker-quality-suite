@@ -115,10 +115,9 @@ without presenting a short demo as exhaustive coverage.
 
 ```bash
 git clone https://github.com/mwinteringham/restful-booker
-cd restful-booker
-docker compose up --build -d
-
 git clone https://github.com/criguex/restful-booker-quality-suite
+docker compose -f restful-booker/docker-compose.yml -f restful-booker-quality-suite/compose.loopback.yml up --build -d
+
 cd restful-booker-quality-suite
 npm ci
 npm run quality
